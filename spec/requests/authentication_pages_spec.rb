@@ -38,6 +38,11 @@ describe "Authentication" do
         before { click_link "Sign out" }
         it { should have_link('Sign in') }
       end
+
+      describe "create user" do
+        before { visit signup_path }
+        it { should_not have_selector('title', text: full_title('Sign up')) }
+      end
     end
   end
   describe "authorization" do
