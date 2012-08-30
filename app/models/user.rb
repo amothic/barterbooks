@@ -10,10 +10,11 @@
 #  password_digest :string(255)
 #  remember_token  :string(255)
 #  admin           :boolean          default(FALSE)
+#  booklog_account :string(255)
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation
+  attr_accessible :email, :name, :password, :password_confirmation, :booklog_account
   has_secure_password
   has_many :books, dependent: :destroy
 
@@ -26,6 +27,7 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   validates :password, length: { minimum: 6 }
   validates :password_confirmation, presence: true
+  validates :booklog_account,  presence: true, length: { maximum: 50 }
 
   private
 

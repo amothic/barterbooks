@@ -10,6 +10,7 @@
 #  password_digest :string(255)
 #  remember_token  :string(255)
 #  admin           :boolean          default(FALSE)
+#  booklog_account :string(255)
 #
 
 require 'spec_helper'
@@ -18,7 +19,8 @@ describe User do
 
   before do
     @user = User.new(name: "Example User", email: "e125723@ie.u-ryukyu.ac.jp",
-                            password: "foobar", password_confirmation: "foobar" )
+                            password: "foobar", password_confirmation: "foobar",
+                            booklog_account: "amothic" )
   end
 
   subject { @user }

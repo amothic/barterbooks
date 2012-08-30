@@ -4,6 +4,7 @@ FactoryGirl.define do
     sequence(:email) { |n| "person_#{n}@ie.u-ryukyu.ac.jp"}   
     password "foobar"
     password_confirmation "foobar"
+    booklog_account "amothic"
 
     factory :admin do
       admin true
@@ -12,6 +13,7 @@ FactoryGirl.define do
 
   factory :book do
     title "Lorem ipsum"
+    sequence(:booklog_id)  { |n| n }
     user
   end
 end

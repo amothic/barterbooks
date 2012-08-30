@@ -95,10 +95,11 @@ describe "User pages" do
 
     describe "with valid information" do
       before do
-        fill_in "名前",             with: "Example User"
-        fill_in "メールアドレス",   with: "e125700@ie.u-ryukyu.ac.jp"
-        fill_in "パスワード",       with: "foobar"
-        fill_in "パスワードの確認", with: "foobar"
+        fill_in "名前",               with: "Example User"
+        fill_in "メールアドレス",     with: "e125700@ie.u-ryukyu.ac.jp"
+        fill_in "Booklog アカウント", with: "amothic"
+        fill_in "パスワード",         with: "foobar"
+        fill_in "パスワードの確認",   with: "foobar"
       end
 
       it "should create a user" do

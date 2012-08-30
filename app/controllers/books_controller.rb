@@ -4,11 +4,11 @@ class BooksController < ApplicationController
 
   def create
     require 'net/http'
-    book_info = Net::HTTP.start('api.booklog.jp',80) {|http| http.get('/json/amothic?category=0&count=200')}
+    book_info = Net::HTTP.start('api.booklog.jp',80) {|http| http.get('/json/' + current_user.booklog_account + '?category=0&count=50')}
     book_info_hash = ActiveSupport::JSON.decode(book_info.body)
     book_info_hash['books'].each do | book |
       if book.include?('title')
-        @book = current_user.books.build(title: book['title'], image_url: book['image'])
+        @book = current_user.books.build(title: book['title'], image_url: book['image'], booklog_id: book['id'])
         @book.save
       end
     end

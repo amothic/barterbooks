@@ -7,19 +7,22 @@
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  image_url  :string(255)
+#  booklog_id :integer
 #
 
 require 'spec_helper'
 
 describe Book do
   let(:user) { FactoryGirl.create(:user) }
-  before { @book = user.books.build(title: "Lorem ipsum") }
+  before { @book = user.books.build(title: "Lorem ipsum", booklog_id: '2000') }
 
   subject { @book }
 
   it { should respond_to(:title) }
   it { should respond_to(:user_id) }
   it { should respond_to(:user) }
+  it { should respond_to(:booklog_id) }
   its(:user) { should == user }
 
   it { should be_valid }
