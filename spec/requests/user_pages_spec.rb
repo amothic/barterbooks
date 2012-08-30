@@ -61,7 +61,7 @@ describe "User pages" do
   describe "signup page" do
     before { visit signup_path }
 
-    it { should have_selector('h1',    text: 'Sign up') }
+    it { should have_selector('h1',    text: 'サインアップ') }
     it { should have_selector('title', text: full_title('Sign up')) }
   end
 
@@ -69,7 +69,7 @@ describe "User pages" do
 
     before { visit signup_path }
 
-    let(:submit) { "Create my account" }
+    let(:submit) { "アカウントを作成する" }
 
     describe "with invalid information" do
       it "should not create a user" do
@@ -86,9 +86,9 @@ describe "User pages" do
 
     describe "with valid information" do
       before do
-        fill_in "名前",         with: "Example User"
-        fill_in "メールアドレス",        with: "e125700@ie.u-ryukyu.ac.jp"
-        fill_in "パスワード",     with: "foobar"
+        fill_in "名前",             with: "Example User"
+        fill_in "メールアドレス",   with: "e125700@ie.u-ryukyu.ac.jp"
+        fill_in "パスワード",       with: "foobar"
         fill_in "パスワードの確認", with: "foobar"
       end
 

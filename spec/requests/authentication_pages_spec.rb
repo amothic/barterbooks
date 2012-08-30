@@ -8,7 +8,7 @@ describe "Authentication" do
   describe "signin page" do
     before { visit signin_path }
 
-    it { should have_selector('h1',    text: 'Sign in') }
+    it { should have_selector('h1',    text: 'サインイン') }
     it { should have_selector('title', text: 'Sign in') }
   end
 
@@ -16,7 +16,7 @@ describe "Authentication" do
     before { visit signin_path }
 
     describe "with invalid information" do
-      before { click_button "Sign in" }
+      before { click_button "サインイン" }
 
       it { should have_selector('title', text: 'Sign in') }
       it { should have_selector('div.alert.alert-error', text: 'Invalid') }
@@ -54,9 +54,9 @@ describe "Authentication" do
       describe "when attempting to visit a protected page" do
         before do
           visit edit_user_path(user)
-          fill_in "Email",    with: user.email
-          fill_in "Password", with: user.password
-          click_button "Sign in"
+          fill_in "メールアドレス",    with: user.email
+          fill_in "パスワード", with: user.password
+          click_button "サインイン"
         end
 
         describe "after signing in" do
