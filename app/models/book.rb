@@ -10,7 +10,7 @@
 #
 
 class Book < ActiveRecord::Base
-  attr_accessible :title
+  attr_accessible :title, :image_url
   belongs_to :user
 
   validates :title,   presence: true, length: { maximum: 140 }
