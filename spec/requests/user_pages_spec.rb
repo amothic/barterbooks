@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'spec_helper'
 
 describe "User pages" do
@@ -14,7 +15,7 @@ describe "User pages" do
     end
 
     it { should have_selector('title', text: 'All users') }
-    it { should have_selector('h1',    text: 'All users') }
+    it { should have_selector('h1',    text: '全てのユーザー') }
 
     describe "pagination" do
 
@@ -31,7 +32,7 @@ describe "User pages" do
     end
     describe "delete links" do
 
-      it { should_not have_link('delete') }
+      it { should_not have_link('delete') } 
 
       describe "as an admin user" do
         let(:admin) { FactoryGirl.create(:admin) }
@@ -40,9 +41,9 @@ describe "User pages" do
           visit users_path
         end
 
-        it { should have_link('delete', href: user_path(User.first)) }
+        it { should have_link('ユーザーの削除', href: user_path(User.first)) }
         it "should be able to delete another user" do
-          expect { click_link('delete') }.to change(User, :count).by(-1)
+          expect { click_link('ユーザーの削除') }.to change(User, :count).by(-1)
         end
         it { should_not have_link('delete', href: user_path(admin)) }
       end
@@ -69,7 +70,7 @@ describe "User pages" do
   describe "signup page" do
     before { visit signup_path }
 
-    it { should have_selector('h1',    text: 'Sign up') }
+    it { should have_selector('h1',    text: 'サインアップ') }
     it { should have_selector('title', text: full_title('Sign up')) }
   end
 
@@ -77,7 +78,7 @@ describe "User pages" do
 
     before { visit signup_path }
 
-    let(:submit) { "Create my account" }
+    let(:submit) { "アカウントを作成する" }
 
     describe "with invalid information" do
       it "should not create a user" do
@@ -94,10 +95,10 @@ describe "User pages" do
 
     describe "with valid information" do
       before do
-        fill_in "Name",         with: "Example User"
-        fill_in "Email",        with: "e125700@ie.u-ryukyu.ac.jp"
-        fill_in "Password",     with: "foobar"
-        fill_in "Confirm Password", with: "foobar"
+        fill_in "名前",             with: "Example User"
+        fill_in "メールアドレス",   with: "e125700@ie.u-ryukyu.ac.jp"
+        fill_in "パスワード",       with: "foobar"
+        fill_in "パスワードの確認", with: "foobar"
       end
 
       it "should create a user" do
@@ -110,7 +111,7 @@ describe "User pages" do
 
         it { should have_selector('title', text: user.name) }
         it { should have_selector('div.alert.alert-success', text: 'Welcome') }
-        it { should have_link('Sign out') }
+        it { should have_link('サインアウト') }
       end
     end
   end
@@ -123,13 +124,13 @@ describe "User pages" do
     end
 
     describe "page" do
-      it { should have_selector('h1',    text: "Update your profile") }
+      it { should have_selector('h1',    text: "プロフィールの編集") }
       it { should have_selector('title', text: "Edit user") }
-      it { should have_link('change', href: 'http://gravatar.com/emails') }
+      it { should have_link('画像を変更する', href: 'http://gravatar.com/emails') }
     end
 
     describe "with invalid information" do
-      before { click_button "Save changes" }
+      before { click_button "変更を保存する" }
 
       it { should have_content('error') }
     end
@@ -138,16 +139,16 @@ describe "User pages" do
       let(:new_name)  { "New Name" }
       let(:new_email) { "new@ie.u-ryukyu.ac.jp" }
       before do
-        fill_in "Name",             with: new_name
-        fill_in "Email",            with: new_email
-        fill_in "Password",         with: user.password
-        fill_in "Confirm Password", with: user.password
-        click_button "Save changes"
+        fill_in "名前",             with: new_name
+        fill_in "メールアドレス",   with: new_email
+        fill_in "パスワード",       with: user.password
+        fill_in "パスワードの確認", with: user.password
+        click_button "変更を保存する"
       end
 
       it { should have_selector('title', text: new_name) }
       it { should have_selector('div.alert.alert-success') }
-      it { should have_link('Sign out', href: signout_path) }
+      it { should have_link('サインアウト', href: signout_path) }
       specify { user.reload.name.should  == new_name }
       specify { user.reload.email.should == new_email }
     end
