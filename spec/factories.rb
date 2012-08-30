@@ -9,4 +9,9 @@ FactoryGirl.define do
       admin true
     end
   end
+
+  factory :book do
+    title "Lorem ipsum"
+    user
+  end
 end

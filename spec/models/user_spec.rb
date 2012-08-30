@@ -2,11 +2,14 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  email           :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  password_digest :string(255)
+#  remember_token  :string(255)
+#  admin           :boolean          default(FALSE)
 #
 
 require 'spec_helper'
@@ -28,6 +31,7 @@ describe User do
   it { should respond_to(:remember_token) }
   it { should respond_to(:admin) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:books) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -128,5 +132,28 @@ describe User do
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
+  end
+
+  describe "book associations" do
+
+    before { @user.save }
+    let!(:older_book) do 
+      FactoryGirl.create(:book, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_book) do
+      FactoryGirl.create(:book, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have the right book in the right order" do
+      @user.books.should == [newer_book, older_book]
+    end
+
+    it "should destroy associated books" do
+      books = @user.books
+      @user.destroy
+      books.each do |book|
+        Book.find_by_id(book.id).should be_nil
+      end
+    end
   end
 end
