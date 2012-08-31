@@ -14,6 +14,10 @@
 class Book < ActiveRecord::Base
   attr_accessible :title, :image_url, :booklog_id
   belongs_to :user
+  has_many :reverse_relationships, foreign_key: "book_id",
+                                     class_name:  "Relationship",
+                                     dependent:   :destroy
+  has_many :borrower, through: :reverse_relationships, source: :user_id
 
   validates :title,      presence: true, length: { maximum: 140 }
   validates :user_id,    presence: true

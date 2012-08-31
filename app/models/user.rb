@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation, :booklog_account
   has_secure_password
   has_many :books, dependent: :destroy
+  has_many :relationships, foreign_key: "user_id", dependent: :destroy
+  has_many :borrowed_books, through: :relationships, source: :book_id
 
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
@@ -29,6 +31,17 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true
   validates :booklog_account,  presence: true, length: { maximum: 50 }
 
+  def borrowing?(book)
+    relationships.find_by_book_id(book.id)
+  end
+
+  def borrow!(book)
+    relationships.create!(book_id: book.id)
+  end
+
+  def return!(book)
+    relationships.find_by_book_id(book.id).destroy
+  end
   private
 
   def create_remember_token
