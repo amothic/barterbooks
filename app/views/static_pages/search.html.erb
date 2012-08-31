@@ -1,11 +1,6 @@
-<%= form_tag [:search], :method => :get do %>
-  <table class="list">
-    <tr>
-      <th style="text-align: right">Book Title</th>
-      <td><%= text_field_tag "title", params[:title] %></td>
-      <td><%= submit_tag "検索" %></td>
-    </tr>
-  </table>
+<%= form_tag [:search], :method => :get , class: "form-search" do %>
+      <%= text_field_tag "title", params[:title] , class: "input-medium search-query", placeholder: "Book title"%>
+      <%= submit_tag "検索", class: "btn"%>
 <% end %>
 
 <h3>Books</h3>
