@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(:version => 20120830121507) do
     t.integer  "booklog_id"
   end
 
-  add_index "books", ["user_id"], :name => "index_books_on_user_id"
+  add_index "books", ["user_id", "created_at"], :name => "index_books_on_user_id_and_created_at"
 
   create_table "users", :force => true do |t|
     t.string   "name"
