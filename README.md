@@ -8,8 +8,8 @@ Installation
 Once you have these:
 
     # Checkout the project
-    $ git clone git://github.com/malclocke/fulcrum.git
-    $ cd fulcrum
+    $ git clone git://github.com/amothic/barterbooks.git
+    $ cd barterbooks
 
     # Install the project dependencies
     $ gem install bundler
