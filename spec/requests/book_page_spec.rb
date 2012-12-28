@@ -13,7 +13,7 @@ describe "Book pages" do
     describe "with valid information" do
 
       it "should loading a books" do
-        expect { click_button "Load Books" }.should change(Book, :count)
+        expect { click_button "本を読み込む" }.should change(Book, :count)
       end
     end
   end
